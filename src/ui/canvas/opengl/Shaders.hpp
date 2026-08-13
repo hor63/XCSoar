@@ -32,7 +32,7 @@ extern GLint invert_projection, invert_texture, invert_translate;
  * the color (#Attribute::COLOR).
  */
 extern GLProgram *alpha_shader;
-extern GLint alpha_projection, alpha_texture, alpha_translate;
+extern GLint alpha_projection, alpha_texture, alpha_translate, alpha_color;
 
 /**
  * A shader that multiplies the texture with #Attribute::COLOR.

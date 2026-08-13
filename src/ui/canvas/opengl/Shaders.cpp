@@ -22,7 +22,7 @@ GLProgram *invert_shader;
 GLint invert_projection, invert_texture, invert_translate;
 
 GLProgram *alpha_shader;
-GLint alpha_projection, alpha_texture, alpha_translate;
+GLint alpha_projection, alpha_texture, alpha_translate, alpha_color;
 
 GLProgram *combine_texture_shader;
 GLint combine_texture_projection, combine_texture_texture,
@@ -123,10 +123,10 @@ static constexpr char alpha_fragment_shader[] =
   GLSL_PRECISION
   R"glsl(
     uniform sampler2D texture;
-    varying vec4 colorvar;
+    uniform vec4 color;
     varying vec2 texcoordvar;
     void main() {
-      gl_FragColor = vec4(colorvar.rgb, texture2D(texture, texcoordvar).a);
+      gl_FragColor = vec4(color.rgb, texture2D(texture, texcoordvar).a);
     }
 )glsl";
 
@@ -322,12 +322,13 @@ OpenGL::InitShaders()
   alpha_shader = CompileProgram(alpha_vertex_shader, alpha_fragment_shader);
   alpha_shader->BindAttribLocation(Attribute::POSITION, "position");
   alpha_shader->BindAttribLocation(Attribute::TEXCOORD, "texcoord");
-  alpha_shader->BindAttribLocation(Attribute::COLOR, "color");
+  // alpha_shader->BindAttribLocation(Attribute::COLOR, "color");
   LinkProgram(*alpha_shader);
 
   alpha_projection = alpha_shader->GetUniformLocation("projection");
   alpha_texture = alpha_shader->GetUniformLocation("texture");
   alpha_translate = alpha_shader->GetUniformLocation("translate");
+  alpha_color = alpha_shader->GetUniformLocation("color");
 
   alpha_shader->Use();
   glUniform1i(alpha_texture, 0);
