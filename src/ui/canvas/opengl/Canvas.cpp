@@ -619,7 +619,7 @@ static void
 PrepareColoredAlphaTexture(Color color) noexcept
 {
   OpenGL::alpha_shader->Use();
-  color.Bind();
+  color.Uniform(OpenGL::alpha_color);
 }
 
 void
