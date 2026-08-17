@@ -112,8 +112,10 @@ static constexpr char invert_fragment_shader[] =
     uniform sampler2D texture;
     varying vec2 texcoordvar;
     void main() {
+	  const vec4 almostOne = vec4(0.999);
       vec4 color = texture2D(texture, texcoordvar);
-      gl_FragColor = vec4(vec3(1) - color.rgb, color.a);
+	  color = vec4(vec3(1) - color.rgb, color.a);
+	  gl_FragColor = almostOne * color;
     }
 )glsl";
 
@@ -139,7 +141,9 @@ static constexpr char combine_texture_fragment_shader[] =
     varying vec4 colorvar;
     varying vec2 texcoordvar;
     void main() {
-      gl_FragColor = colorvar * texture2D(texture, texcoordvar);
+		const vec4 almostOne = vec4(0.999);
+		vec4 color = colorvar * texture2D(texture, texcoordvar);
+        gl_FragColor = almostOne * color;
     }
 )glsl";
 
