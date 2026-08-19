@@ -618,8 +618,8 @@ Canvas::CalcTextSize(std::string_view text) const noexcept
 static void
 PrepareColoredAlphaTexture(Color color) noexcept
 {
-  OpenGL::alpha_shader->Use();
-  color.Uniform(OpenGL::alpha_color);
+  OpenGL::alpha_fix_color_shader->Use();
+  color.Uniform(OpenGL::alpha_fix_color_color);
 }
 
 void
